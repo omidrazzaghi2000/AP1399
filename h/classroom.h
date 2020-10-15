@@ -20,7 +20,7 @@ public:
     void setLeft(std::shared_ptr<Classroom> l);
     double getTemperature();
     size_t noOfSeats();
-    void show() const;
+    void show();
 };
 
 #endif
