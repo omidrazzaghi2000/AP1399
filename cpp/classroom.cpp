@@ -14,9 +14,11 @@ Classroom :: Classroom(const char* _name, size_t _seats){
     if(_seats >= 0){
         seats = _seats;    
     }else{
-        std::cout << "*****Your enter seats number is not valid******" << std::endl;
+        std::cout 
+        << "*****Your enter seats number is not valid******" 
+        << std::endl;
     }
-    
+    no++;
 }
 
 void Classroom::setRight(std::shared_ptr<Classroom> r){
@@ -52,4 +54,3 @@ void Classroom::show() {
     << std::fixed << std::setprecision(2) << getTemperature() 
     << std::endl;
 }
-

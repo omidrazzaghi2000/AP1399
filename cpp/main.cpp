@@ -5,6 +5,8 @@
 //must bee delete
 #include <memory>
 #include <classroom.h>
+
+size_t Classroom::no;//we must declare static variable as global variable :(
 int main(int argc, char **argv)
 {
     //must bee delete
@@ -18,8 +20,10 @@ int main(int argc, char **argv)
     a->setRight(b);
     c->setLeft(b);
     b->setRight(c);
+    
 
-    a->show();
+    Classroom::get_no();
+    
     ::testing::InitGoogleTest(&argc, argv);
     std::cout << "RUNNING TESTS ..." << std::endl;
     int ret{RUN_ALL_TESTS()};
