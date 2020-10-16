@@ -12,7 +12,6 @@ private:
     std::shared_ptr<Classroom> left;  // A smart pointer to the class to the left of this class
     std::shared_ptr<Classroom> right;  // A smart pointer to the class to the right of this class
     double temperature{27};
-    static size_t no; // for counting classroom objects
 public:
     Classroom(const char* _name, size_t _seats);
     std::shared_ptr<Classroom> getRight();
@@ -21,12 +20,17 @@ public:
     void setLeft(std::shared_ptr<Classroom> l);
     double getTemperature();
     size_t noOfSeats();
-    void show();
+    void show() const;
 
-    //extra methode
-    static void get_no(){
-        std::cout << "Number of Class constructed: "<< no << std::endl;
+    //extra member
+    //it must be private but in this project and test we can not use it private
+    static size_t no; // for counting classroom objects
+
+    //for move seats in the floor we need to change seats
+    void set_seats(size_t _seats){
+        seats = _seats;
     }
 };
-
+//static object must initialize global
+size_t Classroom::no;
 #endif

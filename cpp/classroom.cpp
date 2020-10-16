@@ -19,6 +19,9 @@ Classroom :: Classroom(const char* _name, size_t _seats){
         << std::endl;
     }
     no++;
+
+    //Update classroom temperature
+    getTemperature();
 }
 
 void Classroom::setRight(std::shared_ptr<Classroom> r){
@@ -29,6 +32,14 @@ void Classroom::setLeft(std::shared_ptr<Classroom> l){
     left = l;
 }
 
+std::shared_ptr<Classroom> Classroom::getRight(){
+    return right;
+}
+
+std::shared_ptr<Classroom> Classroom::getLeft(){
+    return left;
+}
+
 double Classroom::getTemperature(){
     //Generate random number with random header file
     //onstruct a trivial random generator engine from a time-based seed:
@@ -36,21 +47,21 @@ double Classroom::getTemperature(){
     std::default_random_engine generator (seed);
     //mean: 27 and standard deviation = 3
     std::normal_distribution<double> distribution(27.0,3.0);
-
-    return distribution(generator);
+    temperature = distribution(generator);
+    return temperature;
 }
 
 size_t Classroom::noOfSeats(){
     return seats;
 }
 
-void Classroom::show() {
+void Classroom::show() const{
     std::cout 
     << "Class " 
     << this->name 
     << ", Seats: "
     << this->seats 
     << ", Temprature: " 
-    << std::fixed << std::setprecision(2) << getTemperature() 
+    << std::fixed << std::setprecision(2) << temperature 
     << std::endl;
 }

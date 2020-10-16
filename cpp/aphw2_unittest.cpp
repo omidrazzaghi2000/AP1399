@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 namespace
 {
-/*
+
 TEST(APHW2Test1, classroomTest0)
 {
     auto a = std::make_shared<Classroom>("411", 40);
@@ -96,6 +96,7 @@ TEST(APHW2Test, floorTest6)
     Floor f4{"4", a};
     EXPECT_EQ(f4.noOfSeats(), 90);
 }
+
 TEST(APHW2Test, floorTest7)
 {
     auto a = std::make_shared<Classroom>("411", 40);
@@ -111,5 +112,5 @@ TEST(APHW2Test, floorTest7)
     f4.moveSeats(0, 1, 10);
     EXPECT_EQ(f4[0]->noOfSeats(), 30);
 }
-*/
+
 }
