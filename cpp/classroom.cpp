@@ -65,3 +65,13 @@ void Classroom::show() const{
     << std::fixed << std::setprecision(2) << temperature 
     << std::endl;
 }
+
+
+//extra method declaration
+void Classroom::set_seats(size_t _seats){
+    seats = _seats;
+}
+
+double Classroom::getOnlyTemperature(){
+    return temperature;
+}

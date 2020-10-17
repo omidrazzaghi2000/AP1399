@@ -2,7 +2,8 @@
 #include <floor.h>
 #include <classroom.h>
 #include <memory> //shared pointer
-
+#include <vector> //vector 
+#include <iomanip> // setprecision 
 Floor::Floor(const char* _name, std::shared_ptr<Classroom> _pc){
     //name has no limitation
     name = _name;
@@ -39,7 +40,7 @@ void Floor::show() const{
         << this->name 
         << std::endl
         << "\tAverage temperature: "
-        << AverageTemperature
+        << std::fixed << std::setprecision(2) << AverageTemperature
         << std::endl
         << "\tNo of classes: "
         << no_of_classes
@@ -47,11 +48,18 @@ void Floor::show() const{
 
         //print class list
         
+        /*
+        because we are in the const function so we can not use one pointer 
+        hence , we can use vector of pointer.
+        */
+        std::vector<std::shared_ptr<Classroom>> pc_vector;
         size_t ClassIndex{0};
+        pc_vector.push_back(pc);
         while( ClassIndex < no_of_classes/*until we loop over all classes*/){
             std::cout << "\t";//as intent for printing
-            pc
+            pc_vector.at(ClassIndex)->show();
             ClassIndex++;
+            pc_vector.push_back(pc_vector.at(ClassIndex-1)->getRight());
         }
         
 }
@@ -100,16 +108,17 @@ size_t Floor::noOfSeats(int i){
 double Floor::getTemperature(){
     //save first class pointer to temp_pc
     std::shared_ptr<Classroom> temp_pc{pc};
-    size_t Summation_of_Temperature{0};
+    double Summation_of_Temperature{0};
     while(temp_pc->getRight() != pc /*until we loop over all classes*/){
-        Summation_of_Temperature = Summation_of_Temperature + temp_pc->getTemperature();
+        Summation_of_Temperature = Summation_of_Temperature + temp_pc->getOnlyTemperature();
         temp_pc = temp_pc->getRight();//set refrence pointer to right class
     }
     //for last classroom
     if(temp_pc->getRight() == pc){
-        Summation_of_Temperature = Summation_of_Temperature + temp_pc->getTemperature();
+        Summation_of_Temperature = Summation_of_Temperature + temp_pc->getOnlyTemperature();
     }
-    AverageTemperature = Summation_of_Temperature/(this->noOfClasses());    
+    
+    AverageTemperature = (double)(Summation_of_Temperature)/(double)(this->noOfClasses());    
     return  AverageTemperature;
     // return double(Summation_of_Temperature/(this->noOfClasses()));
 }

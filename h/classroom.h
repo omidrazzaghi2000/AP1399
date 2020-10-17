@@ -27,10 +27,11 @@ public:
     static size_t no; // for counting classroom objects
 
     //for move seats in the floor we need to change seats
-    void set_seats(size_t _seats){
-        seats = _seats;
-    }
+    void set_seats(size_t _seats);
+
+    //prevent changing temperature
+    double getOnlyTemperature();
 };
-//static object must initialize global
-size_t Classroom::no;
+
+
 #endif
