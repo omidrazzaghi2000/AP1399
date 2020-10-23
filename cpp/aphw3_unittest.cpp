@@ -7,15 +7,15 @@
 #include "gtest/gtest.h"
 namespace
 {
-/*
+
 TEST(APHW3Test, BSTTest0)
 {
     std::shared_ptr<BST>mytree{std::make_shared<BST>()};
     mytree->add(10);
-    mytree->add(12);
-    EXPECT_EQ(10, mytree->root());    
+    mytree->add(12)->add(13)->add(15)->add(11)->add(14)->add(18)->add(16);
+    EXPECT_EQ(18, mytree->get_proot()->right->right->right->left->getval());    
 }
-
+/*
 TEST(APHW3Test, BSTTest1)
 {
     std::shared_ptr<BST>mytree{std::make_shared<BST>()};

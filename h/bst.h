@@ -1,7 +1,6 @@
 
 #include <memory> //for shared pointer
 #include <vector>
-
 class BST{
 private:
     class Node{
@@ -12,10 +11,21 @@ private:
             int val;
             Node(std::shared_ptr<Node> p, std::shared_ptr<Node> r, std::shared_ptr<Node> l);
             Node(int i);
+            //extra method that we need to make node
+            Node(int i , std::shared_ptr<Node> p, std::shared_ptr<Node> r, std::shared_ptr<Node> l);
             void show();  //  Prints the value of a node in a single line
+            int getval(){
+                return val;
+            }
     };   
     std::shared_ptr<Node> proot{nullptr};
 public:
+    BST(const BST& b);
+    //------------Extra Method----------
+    //default constructor
+    BST()=default;
+    BST(std::shared_ptr<Node> _proot);
+    //----------------------------------
     int root();  //  Returns the root value
     int operator[](int index);
     size_t size();  //  Returns no of elements in BST 
@@ -25,4 +35,16 @@ public:
     std::vector<int> preorder();  //  Preorder traverse of tree
     std::vector<int> postorder();  //  Postorder traverse of tree
     void show();  //  Prints the inorder traverse of BST in a single line.
+
+    //---------------extra methods----------------
+    BST* add(int value);
+
+    //get shared pointer to root
+    std::shared_ptr<Node> get_proot(){
+        return proot;
+    }
+    
+
+    //--------------------------------------------
+
 };
