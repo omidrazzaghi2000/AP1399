@@ -16,7 +16,6 @@ private:
     };   
     std::shared_ptr<Node> proot{nullptr};
 public:
-    BST(const BST& b);
     int root();  //  Returns the root value
     int operator[](int index);
     size_t size();  //  Returns no of elements in BST 
