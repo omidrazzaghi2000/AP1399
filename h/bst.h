@@ -19,6 +19,7 @@ private:
             }
     };   
     std::shared_ptr<Node> proot{nullptr};
+    
 public:
     BST(const BST& b);
     //------------Extra Method----------

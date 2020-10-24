@@ -1,6 +1,12 @@
 #include "bst.h"
 #include <iostream>
 
+void disp(int val){
+    std::cout << val << std::endl;
+}
+void disp(std::string s){
+    std::cout << s << std::endl;
+}
 /*
     Node Class
 */
@@ -44,6 +50,27 @@ int BST::root(){
     return proot->val;
 }
 
+size_t BST::size(){
+    if(proot==nullptr){
+
+        //No node 
+        return 0;
+
+    }else{
+        
+        //we have one node
+        
+        //we go to right and left tree to calculate all nodes
+        
+        BST tempRightTree{BST(proot->right)};
+        BST tempLeftTree{BST(proot->left)};
+        
+        
+        return  1 + tempRightTree.size() + tempLeftTree.size();
+
+    }
+    
+}
 
 //extra methods:
 //because of on unittest in aphw3_unittest.cpp file we
@@ -70,11 +97,11 @@ BST* BST::add(int value){
         }
         else{
             //we have one element with one branch
-
+            
             /*we have right branch*/
             if(proot->left==nullptr){
                 if(value < proot->val){
-
+                    
                     // proot->left->val=value;
                     // proot->left->parent=proot;
                     proot->left=std::make_shared<Node> (value,proot,nullptr,nullptr);
@@ -92,12 +119,11 @@ BST* BST::add(int value){
                 /*we have left branch */
                 if(proot->right==nullptr){
 
-                    if(value < proot->val){
+                    if(value > proot->val){
 
                         // proot->right->val=value;
                         // proot->right->parent=proot;
-                        proot->left=std::make_shared<Node> (value,proot,nullptr,nullptr);
-
+                        proot->right=std::make_shared<Node> (value,proot,nullptr,nullptr);
                         }
                         else{
 
@@ -150,3 +176,4 @@ BST* BST::add(int value){
     //mytree->add(10)->add(14)->add(12)
     return this;
 }
+
