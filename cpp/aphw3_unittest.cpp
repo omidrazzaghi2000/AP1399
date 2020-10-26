@@ -20,7 +20,7 @@ TEST(APHW3Test, BSTTest1)
 {
     std::shared_ptr<BST>mytree{std::make_shared<BST>()};
     mytree->add(10);
-    mytree->add(12);
+    mytree->add(12);  
     EXPECT_EQ(2, mytree->size());    
 }
 /*

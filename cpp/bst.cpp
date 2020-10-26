@@ -1,5 +1,6 @@
 #include "bst.h"
 #include <iostream>
+#include <vector>
 
 void disp(int val){
     std::cout << val << std::endl;
@@ -72,40 +73,134 @@ size_t BST::size(){
     
 }
 
+bool BST::search(int i){
+    if(proot!=nullptr){
+        if(proot->val == i){
+
+            //easy easy
+            return true;
+        
+        }
+
+        if(proot->val > i){
+
+            //it may be in the left tree
+            BST leftTree{BST(proot->left)};
+            return leftTree.search(i);
+        
+        }
+        
+
+        if(proot->val < i){
+
+            //it may be in the right tree
+            BST rightTree{BST(proot->right)};
+            return rightTree.search(i);
+        }
+    }
+        return false;
+    
+}
+
+//inorder : left parent right
+std::vector<int> BST::inorder(){
+
+    static std::vector<int> inorderVector;
+
+    if(proot==nullptr){
+        
+        //Tree does not have any nodes
+        std::cout << "null\n";
+        return inorderVector;
+    }
+
+    else if(proot->left==nullptr && proot->right == nullptr ){
+
+        //Only root
+        std::cout << "only root " << proot-> val << std::endl;
+        inorderVector.push_back(proot->val);
+        return inorderVector;
+    }
+
+    else if(proot->left == nullptr && proot-> right != nullptr){
+
+        //root with right tree
+        std::cout << " root + right tree " << proot-> val << std::endl;
+        inorderVector.push_back(proot->val);
+        
+        //next we go to right tree to inorder traverse 
+        BST tempRightTree{BST(proot->right)};
+        inorderVector =  tempRightTree.inorder();
+    }
+
+    else if(proot->left != nullptr && proot->right == nullptr){
+
+        //root with left tree
+        std::cout << " root + left tree " << proot-> val << std::endl;
+        BST tempLeftTree{BST(proot->left)};
+        inorderVector =  tempLeftTree.inorder();
+
+        //next we print rooot
+        inorderVector.push_back(proot->val);
+
+    }
+
+    else if(proot->left != nullptr && proot-> right != nullptr){
+
+        //full tree
+
+        //left
+        std::cout << " full tree " << proot-> val << std::endl;
+        BST tempLeftTree{BST(proot->left)};
+        inorderVector =  tempLeftTree.inorder();
+
+        //parent
+        inorderVector.push_back(proot->val);
+
+        //right
+        BST tempRightTree{BST(proot->right)};
+        inorderVector =  tempRightTree.inorder();
+
+    }
+     
+    return inorderVector;
+    
+}
+
 //extra methods:
 //because of on unittest in aphw3_unittest.cpp file we
 //must declare add function like below:
 BST* BST::add(int value){
+
     if(proot==nullptr){
         //set node value
         proot=std::make_shared<Node>(value);
         //as default all right and left and parent are nullptr
     }//whether initialized before
-    else{
+    
         //we have one element as root of tree
-        if(proot->left == nullptr && proot->right == nullptr){
+    else if(proot->left == nullptr && proot->right == nullptr){
+            
             if(proot->val > value) {
                 //insert to left node and set parent
                 // proot->left->val=value;
                 // proot->left->parent=proot;
                 proot->left=std::make_shared<Node> (value,proot,nullptr,nullptr);
-            }else{
+            }else if(value > proot->val){
                 // proot->right->val=value;
                 // proot->right->parent=proot;
                 proot->right=std::make_shared<Node> (value,proot,nullptr,nullptr);
             }
         }
-        else{
-            //we have one element with one branch
             
             /*we have right branch*/
-            if(proot->left==nullptr){
+    else if(proot->left==nullptr && proot->right != nullptr){
                 if(value < proot->val){
                     
                     // proot->left->val=value;
                     // proot->left->parent=proot;
                     proot->left=std::make_shared<Node> (value,proot,nullptr,nullptr);
-                }else{
+                }else if(value > proot->val){
                     //it must be add to right branch tree so again we call this function with different tree root 
                     
                     //define new tree with root of right branch
@@ -115,17 +210,17 @@ BST* BST::add(int value){
                     TempBstTree.add(value);
 
                 }
-            }else{
+            }
                 /*we have left branch */
-                if(proot->right==nullptr){
+    else if(proot->right==nullptr && proot->left != nullptr){
 
                     if(value > proot->val){
 
                         // proot->right->val=value;
                         // proot->right->parent=proot;
                         proot->right=std::make_shared<Node> (value,proot,nullptr,nullptr);
-                        }
-                        else{
+                    }
+                        else if(value < proot->val){
 
                         //it must be add to left branch tree so again we call this function with different tree root 
 
@@ -137,9 +232,9 @@ BST* BST::add(int value){
 
 
                     }
-                }
+    }
                 /*we have full branch*/
-                if(proot->left != nullptr && proot->right != nullptr){
+    if(proot->left != nullptr && proot->right != nullptr){
                     if(value > proot->val){
 
                         //it must go to right tree
@@ -151,7 +246,7 @@ BST* BST::add(int value){
                         TempBstTree.add(value);
 
 
-                    }else{
+                    }else if(value < proot->val){
 
                         //it must go to left tree
 
@@ -161,15 +256,15 @@ BST* BST::add(int value){
                         //again call add function for new tree
                         TempBstTree.add(value);
                     }
-                }
-            }
+    }
+            
 
             
-        }
+        
 
 
 
-    }
+    
 
 
     //to support below line
