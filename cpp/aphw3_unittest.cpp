@@ -21,7 +21,13 @@ TEST(APHW3Test, BSTTest1)
     std::shared_ptr<BST>mytree{std::make_shared<BST>()};
     mytree->add(10);
     mytree->add(12);  
-    EXPECT_EQ(2, mytree->size());    
+    mytree->add(8);
+    mytree->add(9)->add(13)->add(11);
+    std::vector<int> m = mytree->postorder();
+    for(int i{0} ; i < m.size() ; i++){
+        std::cout << m.at(i) << std::endl;
+    }
+    // EXPECT_EQ(2, mytree->size());    
 }
 /*
 TEST(APHW3Test, BSTTest2)

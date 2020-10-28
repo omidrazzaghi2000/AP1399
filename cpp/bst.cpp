@@ -114,14 +114,12 @@ std::vector<int> BST::inorder(){
     if(proot==nullptr){
         
         //Tree does not have any nodes
-        std::cout << "null\n";
         return inorderVector;
     }
 
     else if(proot->left==nullptr && proot->right == nullptr ){
 
         //Only root
-        std::cout << "only root " << proot-> val << std::endl;
         inorderVector.push_back(proot->val);
         return inorderVector;
     }
@@ -129,7 +127,6 @@ std::vector<int> BST::inorder(){
     else if(proot->left == nullptr && proot-> right != nullptr){
 
         //root with right tree
-        std::cout << " root + right tree " << proot-> val << std::endl;
         inorderVector.push_back(proot->val);
         
         //next we go to right tree to inorder traverse 
@@ -140,7 +137,6 @@ std::vector<int> BST::inorder(){
     else if(proot->left != nullptr && proot->right == nullptr){
 
         //root with left tree
-        std::cout << " root + left tree " << proot-> val << std::endl;
         BST tempLeftTree{BST(proot->left)};
         inorderVector =  tempLeftTree.inorder();
 
@@ -154,7 +150,6 @@ std::vector<int> BST::inorder(){
         //full tree
 
         //left
-        std::cout << " full tree " << proot-> val << std::endl;
         BST tempLeftTree{BST(proot->left)};
         inorderVector =  tempLeftTree.inorder();
 
@@ -171,6 +166,129 @@ std::vector<int> BST::inorder(){
     
 }
 
+//perorder :root left right
+std::vector<int> BST::preorder(){
+    static std::vector<int> inorderVector;
+
+    if(proot==nullptr){
+        
+        //Tree does not have any nodes
+        return inorderVector;
+    }
+
+    else if(proot->left==nullptr && proot->right == nullptr ){
+
+        //Only root
+        inorderVector.push_back(proot->val);
+        return inorderVector;
+    }
+
+    else if(proot->left == nullptr && proot-> right != nullptr){
+
+        //root with right tree
+        inorderVector.push_back(proot->val);
+        
+        //next we go to right tree to preorder traverse 
+        BST tempRightTree{BST(proot->right)};
+        inorderVector =  tempRightTree.preorder();
+    }
+
+    else if(proot->left != nullptr && proot->right == nullptr){
+
+        //we save root
+        inorderVector.push_back(proot->val);
+
+        //root with left tree
+        BST tempLeftTree{BST(proot->left)};
+        inorderVector =  tempLeftTree.preorder();
+
+
+    }
+
+    else if(proot->left != nullptr && proot-> right != nullptr){
+
+        //full tree
+        
+        //parent
+        inorderVector.push_back(proot->val);
+        
+        //left
+        BST tempLeftTree{BST(proot->left)};
+        inorderVector =  tempLeftTree.preorder();
+
+        
+
+        //right
+        BST tempRightTree{BST(proot->right)};
+        inorderVector =  tempRightTree.preorder();
+
+    }
+     
+    return inorderVector;
+}
+
+//postorder : left right root
+std::vector<int> BST::postorder(){
+    static std::vector<int> inorderVector;
+
+    if(proot==nullptr){
+        
+        //Tree does not have any nodes
+        return inorderVector;
+    }
+
+    else if(proot->left==nullptr && proot->right == nullptr ){
+
+        //Only root
+        inorderVector.push_back(proot->val);
+        return inorderVector;
+    }
+
+    else if(proot->left == nullptr && proot-> right != nullptr){
+        
+        //root with right tree
+
+        //we go to right tree to postorder traverse 
+        BST tempRightTree{BST(proot->right)};
+        inorderVector =  tempRightTree.postorder();
+
+        // next add root
+        inorderVector.push_back(proot->val);
+    }
+
+    else if(proot->left != nullptr && proot->right == nullptr){
+
+        //root with left tree
+        BST tempLeftTree{BST(proot->left)};
+        inorderVector =  tempLeftTree.postorder();
+
+        //next we save root
+        inorderVector.push_back(proot->val);
+
+    }
+
+    else if(proot->left != nullptr && proot-> right != nullptr){
+
+        //full tree
+        
+        
+        
+        //left
+        BST tempLeftTree{BST(proot->left)};
+        inorderVector =  tempLeftTree.postorder();
+
+
+        //right
+        BST tempRightTree{BST(proot->right)};
+        inorderVector =  tempRightTree.postorder();
+
+        //parent
+        inorderVector.push_back(proot->val);
+
+    }
+     
+    return inorderVector;
+}
 //extra methods:
 //because of on unittest in aphw3_unittest.cpp file we
 //must declare add function like below:
