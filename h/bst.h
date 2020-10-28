@@ -38,7 +38,8 @@ public:
     void show();  //  Prints the inorder traverse of BST in a single line.
 
     //---------------extra methods----------------
-    BST* add(int value);
+    BST* add(int );
+    void remove(int );
 
     //get shared pointer to root
     std::shared_ptr<Node> get_proot(){

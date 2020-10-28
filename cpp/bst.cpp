@@ -51,6 +51,10 @@ int BST::root(){
     return proot->val;
 }
 
+int BST::operator[](int index){
+    return inorder().at(index);
+}
+
 size_t BST::size(){
     if(proot==nullptr){
 
@@ -259,16 +263,20 @@ BST* BST::add(int value){
     }
             
 
-            
-        
-
-
-
-    
-
-
     //to support below line
     //mytree->add(10)->add(14)->add(12)
     return this;
 }
 
+void BST::remove(int i){
+    
+    //check value is in the tree or not
+    if(search(i)){
+
+        //we have some types let us go:
+
+        //first: node which we want to remove is root of tree
+        
+    }
+
+}
