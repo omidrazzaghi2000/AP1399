@@ -46,7 +46,9 @@ public:
         return proot;
     }
     
-
+    //search helper for remove
+    BST searchAndGetTree(int value);
+    std::shared_ptr<Node> findMaximum();
     //--------------------------------------------
 
 };
