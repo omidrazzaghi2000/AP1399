@@ -49,6 +49,11 @@ public:
     //search helper for remove
     BST searchAndGetTree(int value);
     std::shared_ptr<Node> findMaximum();
+
+    //inorder and preorder and postorder 
+    std::vector<int> inorder_recursive(std::vector<int> temp);
+    std::vector<int> preorder_recursive(std::vector<int> temp);
+    std::vector<int> postorder_recursive(std::vector<int> temp);
     //--------------------------------------------
 
 };
